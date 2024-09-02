@@ -1,0 +1,41 @@
+﻿@using Shared.Models
+@using MudBlazor
+
+<MudContainer Class="pa-4">
+    <MudTable Items="CartItems" Striped="true" Bordered="true">
+        <HeaderContent>
+            <MudTh>Producto</MudTh>
+            <MudTh>Cantidad</MudTh>
+            <MudTh>Precio Unitario</MudTh>
+            <MudTh>Precio Total</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Product.Title</MudTd>
+            <MudTd>
+                <MudNumericField @bind-Value="context.Quantity" Min="1" Max="100" />
+            </MudTd>
+            <MudTd>@context.Product.Price.ToString("C")</MudTd>
+            <MudTd>@(context.Product.Price * context.Quantity).ToString("C")</MudTd>
+        </RowTemplate>
+        <FooterContent>
+            <MudTd colspan="3">Total:</MudTd>
+            <MudTd>@TotalPrice.ToString("C")</MudTd>
+        </FooterContent>
+    </MudTable>
+
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnPay">Pagar</MudButton>
+    <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="OnSaveCart">Guardar Carrito</MudButton>
+</MudContainer>
+
+@code {
+    [Parameter]
+    public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+    [Parameter]
+    public EventCallback OnPay { get; set; }
+
+    [Parameter]
+    public EventCallback OnSaveCart { get; set; }
+
+    private decimal TotalPrice => CartItems.Sum(item => item.Product.Price * item.Quantity);
+}

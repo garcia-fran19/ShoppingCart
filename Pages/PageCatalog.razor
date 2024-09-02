@@ -14,13 +14,22 @@
 
     protected override async Task OnInitializedAsync()
     {
-        products = await HttpClient.GetFromJsonAsync<List<Product>>("Products.json");
+        try
+        {
+            products = await HttpClient.GetFromJsonAsync<List<Product>>("https://fakestoreapi.com/products");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al obtener productos: {ex.Message}");
+            // Aquí podrías manejar el error, mostrar un mensaje al usuario, etc.
+        }
     }
 
     private void AddToCart(Product product)
     {
         Console.WriteLine($"Producto agregado: {product.Title}");
         // Lógica adicional para agregar al carrito
+
     }
 
     private void ViewDetails(int productId)

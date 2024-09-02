@@ -1,0 +1,30 @@
+﻿@page "/cart"
+@using Shared.Models
+@inject NavigationManager NavigationManager
+
+<MudContainer>
+    <Carrito CartItems="cartItems" OnPay="HandlePay" OnSaveCart="HandleSaveCart" />
+</MudContainer>
+
+@code {
+    private List<CartItem> cartItems = new List<CartItem>();
+
+    protected override void OnInitialized()
+    {
+        // Inicializa cartItems aquí, por ejemplo, cargando desde local storage o una API
+    }
+
+    private Task HandlePay()
+    {
+        Console.WriteLine("Pago realizado");
+        // Lógica para manejar el pago
+        return Task.CompletedTask;
+    }
+
+    private Task HandleSaveCart()
+    {
+        Console.WriteLine("Carrito guardado");
+        // Lógica para guardar el carrito (por ejemplo, en local storage)
+        return Task.CompletedTask;
+    }
+}

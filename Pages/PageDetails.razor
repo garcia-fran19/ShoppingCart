@@ -1,8 +1,6 @@
-﻿
-@page "/product/{Id:int}"
+﻿@page "/product/{Id:int}"
 @inject HttpClient HttpClient
 @using Shared.Models
-@*main page que consume los componentes y la API*@
 
 <MudContainer>
     <ProductDetails Product="product" OnAddToCart="AddToCart" />
@@ -16,8 +14,16 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        var products = await HttpClient.GetFromJsonAsync<List<Product>>("products.json");
-        product = products.FirstOrDefault(p => p.Id == Id);
+        try
+        {
+            // Llamada directa a la API para obtener el producto por su ID
+            product = await HttpClient.GetFromJsonAsync<Product>($"https://fakestoreapi.com/products/{Id}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al obtener los detalles del producto: {ex.Message}");
+            // Aquí podrías manejar el error, mostrar un mensaje al usuario, etc.
+        }
     }
 
     private void AddToCart(Product product)

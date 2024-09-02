@@ -2,22 +2,67 @@
 @using MudBlazor
 
 @*contenedor (padre) de las card, es la pagina que muestra los productos*@
+<MudContainer>
+
 <MudGrid>
     @foreach (var product in Products)
     {
-        <MudItem xs="12" sm="6" md="4">
-            <ProductCard Product="product" OnAddToCart="OnAddToCart" OnViewDetails="OnViewDetails" />
-        </MudItem>
+        if (Products != null)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <ProductCard Product="product" OnAddToCart="OnAddToCart" OnViewDetails="OnViewDetails" />
+            </MudItem>
+        }
     }
 </MudGrid>
+
+   <ShoppingCart CartItems="cartItems" OnPay="HandlePay" OnSaveCart="HandleSaveCart" />
+</MudContainer>
 
 @code {
     [Parameter]
     public List<Product> Products { get; set; }
+
+    private List<CartItem> cartItems = new List<CartItem>();
+
 
     [Parameter]
     public EventCallback<Product> OnAddToCart { get; set; }
 
     [Parameter]
     public EventCallback<int> OnViewDetails { get; set; }
+}
+  private async Task HandleAddToCart(Product product)
+    {
+        var existingItem = cartItems.FirstOrDefault(ci => ci.Product.Id == product.Id);
+
+        if (existingItem != null)
+        {
+            existingItem.Quantity++;
+        }
+        else
+        {
+            cartItems.Add(new CartItem { Product = product, Quantity = 1 });
+        }
+
+        // Invocar el callback para notificar al componente padre que se ha añadido un producto al carrito
+        if (OnAddToCart.HasDelegate)
+        {
+            await OnAddToCart.InvokeAsync(product);
+        }
+    }
+
+    private Task HandlePay()
+    {
+        Console.WriteLine("Pago realizado");
+        // Lógica de pago
+        return Task.CompletedTask;
+    }
+
+    private Task HandleSaveCart()
+    {
+        Console.WriteLine("Carrito guardado");
+        // Lógica para guardar el carrito (ejemplo: en local storage)
+        return Task.CompletedTask;
+    }
 }
