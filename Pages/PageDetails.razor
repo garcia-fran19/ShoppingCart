@@ -1,0 +1,28 @@
+﻿
+@page "/product/{Id:int}"
+@inject HttpClient HttpClient
+@using Shared.Models
+@*main page que consume los componentes y la API*@
+
+<MudContainer>
+    <ProductDetails Product="product" OnAddToCart="AddToCart" />
+</MudContainer>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Product product;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var products = await HttpClient.GetFromJsonAsync<List<Product>>("products.json");
+        product = products.FirstOrDefault(p => p.Id == Id);
+    }
+
+    private void AddToCart(Product product)
+    {
+        Console.WriteLine($"Producto agregado desde detalles: {product.Title}");
+        // Lógica adicional para agregar al carrito
+    }
+}

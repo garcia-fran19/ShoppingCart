@@ -1,0 +1,33 @@
+﻿
+@page "/catalog"
+@inject HttpClient HttpClient
+@using Shared.Models
+
+@*main page que consume los componentes y la API*@
+
+<MudContainer>
+    <ProductCatalog Products="products" OnAddToCart="AddToCart" OnViewDetails="ViewDetails" />
+</MudContainer>
+
+@code {
+    private List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await HttpClient.GetFromJsonAsync<List<Product>>("Products.json");
+    }
+
+    private void AddToCart(Product product)
+    {
+        Console.WriteLine($"Producto agregado: {product.Title}");
+        // Lógica adicional para agregar al carrito
+    }
+
+    private void ViewDetails(int productId)
+    {
+        NavigationManager.NavigateTo($"/product/{productId}");
+    }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+}
