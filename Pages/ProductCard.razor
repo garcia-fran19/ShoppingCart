@@ -1,0 +1,26 @@
+﻿
+@using BlazorShoppingCart.Models
+@using MudBlazor
+
+<MudCard>
+    <MudCardMedia Image="@Product.ImageUrl" Height="200px" />
+    <MudCardContent>
+        <MudText Typo="Typo.h6">@Product.Title</MudText>
+        <MudText Typo="Typo.subtitle2">@Product.Price.ToString("C")</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => OnAddToCart?.Invoke(Product))">Agregar al Carrito</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="@(() => OnViewDetails?.Invoke(Product.Id))">Ver Detalles</MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+
+    [Parameter]
+    public EventCallback<Product> OnAddToCart { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnViewDetails { get; set; }
+}

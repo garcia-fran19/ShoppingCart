@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -14,3 +17,13 @@
         </article>
     </main>
 </div>
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+<script src="_content/MudBlazor/MudBlazor.min.js"></script>

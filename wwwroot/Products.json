@@ -1,25 +1,23 @@
 [
-  //simulacion de API
   {
     "id": 1,
     "title": "Producto 1",
-    "description": "Descripci�n del Producto 1",
+    "description": "Descripción del Producto 1",
     "price": 19.99,
     "imageUrl": "https://via.placeholder.com/150"
   },
   {
     "id": 2,
     "title": "Producto 2",
-    "description": "Descripci�n del Producto 2",
+    "description": "Descripción del Producto 2",
     "price": 29.99,
     "imageUrl": "https://via.placeholder.com/150"
   },
   {
     "id": 3,
     "title": "Producto 3",
-    "description": "Descripci�n del Producto 3",
+    "description": "Descripción del Producto 3",
     "price": 39.99,
     "imageUrl": "https://via.placeholder.com/150"
   }
-  // Agrega m�s productos seg�n necesites
 ]

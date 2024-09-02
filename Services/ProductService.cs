@@ -19,7 +19,7 @@ namespace ShoppingCart.Services
             // return await _httpClient.GetFromJsonAsync<List<Product>>("api/products");
 
             // Si estás usando un archivo JSON local
-            return await _httpClient.GetFromJsonAsync<List<Product>>("products.json");
+            return await _httpClient.GetFromJsonAsync<List<Product>>("Products.json");
         }
 
         public async Task<Product> GetProductByIdAsync(int id)
