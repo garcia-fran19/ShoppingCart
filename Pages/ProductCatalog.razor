@@ -16,7 +16,7 @@
     }
 </MudGrid>
 
-   <ShoppingCart CartItems="cartItems" OnPay="HandlePay" OnSaveCart="HandleSaveCart" />
+   <Carrito CartItems="cartItems" OnPay="HandlePay" OnSaveCart="HandleSaveCart" />
 </MudContainer>
 
 @code {
@@ -31,7 +31,7 @@
 
     [Parameter]
     public EventCallback<int> OnViewDetails { get; set; }
-}
+
   private async Task HandleAddToCart(Product product)
     {
         var existingItem = cartItems.FirstOrDefault(ci => ci.Product.Id == product.Id);
